@@ -3,7 +3,7 @@ using App.Model;
 
 namespace App.Repository
 {
-    public class CustomerRepository: Repository<Customer>, ICustomerRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private AdventureWorksEntities dataContext;
 
@@ -13,7 +13,7 @@ namespace App.Repository
             private set;
         }
 
-        public CustomerRepository(IDatabaseFactory databaseFactory)
+        public ProductRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
             DatabaseFactory = databaseFactory;
@@ -23,8 +23,10 @@ namespace App.Repository
         {
             get { return dataContext ?? (dataContext = DatabaseFactory.Get()); }
         }
-    }
 
-    public interface ICustomerRepository: IRepository<Customer>
-    {}
+
+    }
+    public interface IProductRepository : IRepository<Product>
+    {
+    }
 }

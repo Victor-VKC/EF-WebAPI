@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d77a28f491b0483ab1ec689df20fc223" Name="Диаграмма1" ZoomLevel="100">
+      <Diagram DiagramId="d77a28f491b0483ab1ec689df20fc223" Name="Диаграмма1" ZoomLevel="57">
         <EntityTypeShape EntityType="AdventureWorksModel.EmailAddress" Width="1.5" PointX="10.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AdventureWorksModel.Password" Width="1.5" PointX="10.5" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="AdventureWorksModel.Person" Width="1.5" PointX="8.375" PointY="6.75" IsExpanded="true" />
@@ -53,6 +53,9 @@
         <AssociationConnector Association="AdventureWorksModel.FK_SalesOrderHeaderSalesReason_SalesReason_SalesReasonID" ManuallyRouted="false" />
         <AssociationConnector Association="AdventureWorksModel.FK_SalesPersonQuotaHistory_SalesPerson_BusinessEntityID" ManuallyRouted="false" />
         <AssociationConnector Association="AdventureWorksModel.FK_Store_SalesPerson_SalesPersonID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AdventureWorksModel.Address" Width="1.5" PointX="10.5" PointY="2.5" />
+        <AssociationConnector Association="AdventureWorksModel.FK_SalesOrderHeader_Address_BillToAddressID" />
+        <AssociationConnector Association="AdventureWorksModel.FK_SalesOrderHeader_Address_ShipToAddressID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

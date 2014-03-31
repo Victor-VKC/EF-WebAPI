@@ -1,9 +1,14 @@
-﻿using App.DAL;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using App.DAL;
 using App.Model;
 
 namespace App.Repository
 {
-    public class CustomerRepository: Repository<Customer>, ICustomerRepository
+    public class SalesOrderDetailRepository : Repository<SalesOrderDetail>, ISalesOrderDetailRepository
     {
         private AdventureWorksEntities dataContext;
 
@@ -13,7 +18,7 @@ namespace App.Repository
             private set;
         }
 
-        public CustomerRepository(IDatabaseFactory databaseFactory)
+        public SalesOrderDetailRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
             DatabaseFactory = databaseFactory;
@@ -23,8 +28,9 @@ namespace App.Repository
         {
             get { return dataContext ?? (dataContext = DatabaseFactory.Get()); }
         }
-    }
 
-    public interface ICustomerRepository: IRepository<Customer>
-    {}
+    }
+    public interface ISalesOrderDetailRepository : IRepository<SalesOrderDetail>
+    {
+    }
 }

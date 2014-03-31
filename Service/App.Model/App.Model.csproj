@@ -67,7 +67,9 @@
     <Compile Include="Customer.cs">
       <DependentUpon>AdventureWorks.tt</DependentUpon>
     </Compile>
-    <Compile Include="DTO\CustomerDTO.cs" />
+    <Compile Include="DataObjects\InvoiceObject.cs" />
+    <Compile Include="DataObjects\PersonObject.cs" />
+    <Compile Include="DataObjects\ProductObject.cs" />
     <Compile Include="EmailAddress.cs">
       <DependentUpon>AdventureWorks.tt</DependentUpon>
     </Compile>
