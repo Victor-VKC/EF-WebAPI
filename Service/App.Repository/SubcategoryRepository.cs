@@ -3,7 +3,7 @@ using App.Entity;
 
 namespace App.Repository
 {
-    public class CustomerRepository: Repository<Customer>, ICustomerRepository
+    public class SubcategoryRepository : Repository<ProductSubcategory>, ISubcategoryRepository
     {
         private AdventureWorksEntities dataContext;
 
@@ -13,7 +13,7 @@ namespace App.Repository
             private set;
         }
 
-        public CustomerRepository(IDatabaseFactory databaseFactory)
+        public SubcategoryRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
             DatabaseFactory = databaseFactory;
@@ -25,6 +25,7 @@ namespace App.Repository
         }
     }
 
-    public interface ICustomerRepository: IRepository<Customer>
-    {}
+    public interface ISubcategoryRepository : IRepository<ProductSubcategory>
+    {
+    }
 }

@@ -1,5 +1,5 @@
 ﻿using App.DAL;
-using App.Model;
+using App.Entity;
 
 namespace App.Repository
 {

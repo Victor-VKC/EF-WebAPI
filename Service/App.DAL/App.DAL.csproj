@@ -54,14 +54,14 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Model\App.Model.csproj">
-      <Project>{8849f8a0-8397-4cbe-b2c1-19c358b730dc}</Project>
-      <Name>App.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Entity\App.Entity.csproj">
+      <Project>{cef999cf-efac-4ab6-b738-5a0a7c41f274}</Project>
+      <Name>App.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

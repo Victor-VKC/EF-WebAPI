@@ -49,15 +49,16 @@
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesOrderDetailRepository.cs" />
+    <Compile Include="SubcategoryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.DAL\App.DAL.csproj">
       <Project>{89F6E557-FBFA-417F-9032-5FA43201811C}</Project>
       <Name>App.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\App.Model\App.Model.csproj">
-      <Project>{8849F8A0-8397-4CBE-B2C1-19C358B730DC}</Project>
-      <Name>App.Model</Name>
+    <ProjectReference Include="..\App.Entity\App.Entity.csproj">
+      <Project>{cef999cf-efac-4ab6-b738-5a0a7c41f274}</Project>
+      <Name>App.Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

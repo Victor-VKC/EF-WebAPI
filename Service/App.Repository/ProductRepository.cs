@@ -1,30 +1,22 @@
 ﻿using App.DAL;
-using App.Model;
+using App.Entity;
 
 namespace App.Repository
 {
     public class ProductRepository : Repository<Product>, IProductRepository
     {
-        private AdventureWorksEntities dataContext;
+        private static ProductRepository _instanse = null;
 
-        protected IDatabaseFactory DatabaseFactory
+        public static ProductRepository Instanse
         {
-            get;
-            private set;
+            get { return _instanse ?? (_instanse = new ProductRepository(DAL.DatabaseFactory.Instance)); }
         }
 
         public ProductRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
-            DatabaseFactory = databaseFactory;
+           
         }
-
-        protected AdventureWorksEntities DataContext
-        {
-            get { return dataContext ?? (dataContext = DatabaseFactory.Get()); }
-        }
-
-
     }
     public interface IProductRepository : IRepository<Product>
     {

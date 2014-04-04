@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Validation;
 using System.Diagnostics;
-using App.Model;
+using App.Entity;
 
 namespace App.DAL
 {

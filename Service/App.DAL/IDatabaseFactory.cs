@@ -1,5 +1,5 @@
 ﻿using System;
-using App.Model;
+using App.Entity;
 
 namespace App.DAL
 {

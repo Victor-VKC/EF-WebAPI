@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Security;
-using App.DAL;
+using App.Entity;
 using App.Model;
 using App.Repository;
-using App.Service.DataObjects;
 
 namespace App.Service
 {
@@ -73,7 +70,7 @@ namespace App.Service
             var passwordSalt = CreateSalt(5);
             var resultCustomer = customer.CustomerId != 0 ? 
                 _customerRepository.GetById(customer.CustomerId) : 
-                new Customer {Person = new Person()};
+                new Customer {Person = new Person(){EmailAddresses = new Collection<EmailAddress>()}};
             resultCustomer.Person.FirstName = customer.FirstName;
             resultCustomer.Person.MiddleName = customer.MiddleName;
             resultCustomer.Person.LastName = customer.LastName;
@@ -84,10 +81,23 @@ namespace App.Service
             resultCustomer.Person.Password.PasswordSalt = passwordSalt;
             resultCustomer.ModifiedDate = DateTime.Now;
             resultCustomer.rowguid = Guid.NewGuid();
+            //resultCustomer.Person.EmailAddresses.ElementAtOrDefault(1).EmailAddress1
             if (customer.CustomerId == 0)
+            {
+                resultCustomer.Person.EmailAddresses.Add(new EmailAddress()
+                {
+                    EmailAddress1 = customer.EmailAddress,
+                    ModifiedDate = DateTime.Now,
+                    Person = resultCustomer.Person,
+                    rowguid = resultCustomer.rowguid,
+                    EmailAddressID = 0
+                });
                 _customerRepository.Add(resultCustomer);
+            }
             else
+            {
                 _customerRepository.Update(resultCustomer);
+            }
             return resultCustomer.CustomerID;
         }
 
@@ -103,6 +113,7 @@ namespace App.Service
                 Rowguid = customer.rowguid,
                 Title = customer.Person.Title,
                 Suffix = customer.Person.Suffix,
+                EmailAddress = customer.Person.EmailAddresses.ElementAt(0).EmailAddress1,
                 Password = customer.Person.Password.PasswordHash
             };
             return result;

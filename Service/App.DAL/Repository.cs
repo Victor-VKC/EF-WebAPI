@@ -1,4 +1,4 @@
-﻿using App.Model;
+﻿using App.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,11 +8,11 @@ using System.Linq.Expressions;
 
 namespace App.DAL
 {
-    public abstract class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private AdventureWorksEntities _dataContext;
         private readonly IDbSet<T> _dbset;
-        protected Repository(IDatabaseFactory databaseFactory)
+        public Repository(IDatabaseFactory databaseFactory)
         {
             DatabaseFactory = databaseFactory;
             _dbset = DataContext.Set<T>();

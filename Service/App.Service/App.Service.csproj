@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\ProductObjectConverter.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,8 +50,12 @@
       <Project>{89F6E557-FBFA-417F-9032-5FA43201811C}</Project>
       <Name>App.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\App.Entity\App.Entity.csproj">
+      <Project>{CEF999CF-EFAC-4AB6-B738-5A0A7C41F274}</Project>
+      <Name>App.Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Model\App.Model.csproj">
-      <Project>{8849F8A0-8397-4CBE-B2C1-19C358B730DC}</Project>
+      <Project>{3B23B59D-5F7B-4842-BB1E-C231FBA47462}</Project>
       <Name>App.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Repository\App.Repository.csproj">
