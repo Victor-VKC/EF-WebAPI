@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using Data.Models;
 using Server.Entity;
 using Server.Services.DAL;
 using Server.Services.Utils;
-using Address = Server.Entity.Address;
+using EntityAddress = Server.Entity.Address;
+using DataAddress = Data.Models.Address;
 
 namespace Server.Services
 {
     public interface IAddressService
     {
-        IEnumerable<Data.Models.Address> GetAddresses(int customerId);
+        IEnumerable<DataAddress> GetAddresses(int customerId);
         void SetDefaultAddress(int customerId, int addressId);
         void DeleteAddress(int addressId);
         void AddOrSaveAddress(int customerId, Data.Models.Address address);
@@ -24,15 +21,19 @@ namespace Server.Services
     {
         private readonly IRepository<Server.Entity.CustomerAddress> _addressRepository;
 
-        public AddressService() : this(new Repository<Server.Entity.CustomerAddress>())
+        public AddressService() : this(new Repository<CustomerAddress>())
         {}
 
-        public AddressService(IRepository<Server.Entity.CustomerAddress> repository)
+        public AddressService(IRepository<CustomerAddress> repository)
         {
             _addressRepository = repository;
         }
 
-        private static void CheckDefaultAddress(IList<Data.Models.Address> addresses)
+        /// <summary>
+        /// Check real default address. If not exists set first address as virtual default address.
+        /// </summary>
+        /// <param name="addresses">Consumer addresses list.</param>
+        private static void CheckDefaultAddress(IList<DataAddress> addresses)
         {
             if (addresses.Count == 0) return;
             if (addresses.Any(address => address.IsDefault))
@@ -44,30 +45,33 @@ namespace Server.Services
 
         public void DeleteAddress(int addressId)
         {
-            var address = _addressRepository.Get(item => item.AddressID == addressId);
-            if(GetAddresses(address.CustomerID).Count() < 2) return;
-            _addressRepository.Delete(address);
+            var addressLink = _addressRepository.Get(item => item.AddressID == addressId);
+            if(_addressRepository.GetMany(item => item.CustomerID == addressLink.CustomerID).Count() < 2) return;
+            _addressRepository.Delete(addressLink);
+            var repository = new Repository<EntityAddress>();
+            var address = repository.Get(item => item.AddressID == addressId);
+            repository.Delete(address);
             _addressRepository.Commit();
         }
 
-        public void AddOrSaveAddress(int customerId, Data.Models.Address address)
+        public void AddOrSaveAddress(int customerId, DataAddress address)
         {
             if(address == null) return;
-            var repository = new Repository<Address>();
+            var repository = new Repository<EntityAddress>();
             if (address.AddressID == 0)
             {
-                var newId = _addressRepository.GetAll().Max(item => item.AddressID) + 1;
+                address.AddressID = _addressRepository.GetAll().Max(item => item.AddressID) + 1;
                 _addressRepository.Add(new CustomerAddress()
                 {
-                    AddressID = newId, 
+                    AddressID = address.AddressID, 
                     AddressType = address.AddressType, 
                     CustomerID = customerId, 
                     ModifiedDate = DateTime.Now, 
-                    rowguid = new Guid()
+                    rowguid = Guid.NewGuid()
                 });
-                repository.Add(new Address()
+                repository.Add(new EntityAddress()
                 {
-                    AddressID = newId, 
+                    AddressID = address.AddressID, 
                     AddressLine1 = address.AddressLine1, 
                     AddressLine2 = address.AddressLine2, 
                     City = address.City, 
@@ -75,12 +79,13 @@ namespace Server.Services
                     ModifiedDate = DateTime.Now, 
                     PostalCode = address.PostalCode, 
                     StateProvince = address.StateProvince, 
-                    rowguid = new Guid()});
+                    rowguid = Guid.NewGuid()});
             }
             else
             {
                 var addressLink = _addressRepository.Get(item => item.AddressID == address.AddressID);
-                if (address.AddressType != addressLink.AddressType)
+                if ((address.IsDefault && !addressLink.AddressType.Equals('*' + address.AddressType)) ||
+                    (!address.IsDefault && !address.AddressType.Equals(addressLink.AddressType)))
                 {
                     addressLink.AddressType = address.AddressType;
                     addressLink.ModifiedDate = DateTime.Now;
