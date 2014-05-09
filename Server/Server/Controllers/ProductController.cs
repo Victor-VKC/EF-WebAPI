@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using Server.Services;
 using Data.Models;
@@ -29,10 +30,9 @@ namespace Server.Controllers
             return _productService.GetProductsByCategory(categoryId);
         }
 
-        public IEnumerable<Product> GetProducts(int? categoryId, int page, int pageLength, string orderData,
-            bool forward)
+        public IEnumerable<Product> GetProducts(int? categoryId, string orderData, bool forward)
         {
-            return _productService.GetProductsPage(categoryId, page, pageLength, orderData, forward);
+            return _productService.GetProductsPage(categoryId, 1, Int32.MaxValue, orderData, forward);
         }
 
         public SearchResult GetSearchResults(string queryString, int page, int pageLength)

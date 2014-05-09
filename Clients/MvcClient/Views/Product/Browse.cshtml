@@ -1,0 +1,57 @@
+﻿@using System.EnterpriseServices
+@model System.Collections.Generic.IList<Data.Models.Product>
+
+
+<div class="container">
+    <div class="row">
+        @foreach (var p in Model)
+        {
+            var base64 = Convert.ToBase64String(p.ThumbNailPhoto);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <div class="col-sm-4 col-md-3 col-lg-2">
+                <div class="thumbnail" style="background: #ffffff">
+                    <a href="@Url.Action("Index", "Product", new {id=p.ProductID}, null)"><img src="@imgSrc" alt="No image"/></a>
+                    <div class="caption" style="color: #000000">
+                        <h5>@p.Name</h5>
+                        <p>@p.ListPrice.ToString("C")</p>
+                        <div class="btn-group-justified">
+                            <a href="@Url.Action("Index", "Product", new {id=p.ProductID}, null)" class="btn btn-default btn-xs" role="button">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
+    @*    <table class="table table-striped table-condensed">
+        <thead class="alert alert-info">
+            <tr>
+                <th>ID</th>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var i = 1; }
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <th>@p.ProductID</th>
+                    @{
+                var base64 = Convert.ToBase64String(p.ThumbNailPhoto);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <th>
+                        <img src="@imgSrc" alt="No image"/></th>
+                    <th>@p.Name</th>
+                    <th>@p.ListPrice</th>
+                  
+                    <th>@Html.ActionLink("Add to cart", "Add", "ShoppingCart")</th>
+                </tr> 
+            }
+        </tbody>
+    </table>*@
+
+</div>

@@ -3,8 +3,8 @@ namespace Data.Models
 {
     public class UserInfo
     {
-        public string UserName { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
+        public int CustomerId { get; set; }
+        public int AddressId { get; set; }
+        public int OrderId { get; set; }
     }
 }

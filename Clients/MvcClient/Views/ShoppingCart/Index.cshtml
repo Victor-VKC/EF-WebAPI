@@ -1,0 +1,9 @@
+﻿@model MvcClient.Models.ShoppingCartModel
+
+@{
+    Layout = null;
+}
+@{
+    var str = String.Format("Cart({0})", Model.Count);
+}
+<li>@Html.ActionLink(str, "Index", "Home")</li>

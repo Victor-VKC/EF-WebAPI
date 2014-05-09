@@ -44,14 +44,11 @@
     <Compile Include="AddressType.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="Order.cs" />
-    <Compile Include="PaymentMethod.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesOrderDetail.cs" />
+    <Compile Include="SalesOrderHeader.cs" />
     <Compile Include="SearchResult.cs" />
-    <Compile Include="ShippingMethod.cs" />
-    <Compile Include="ShoppingCart.cs" />
-    <Compile Include="ShoppingCartItem.cs" />
     <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
